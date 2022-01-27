@@ -8,12 +8,13 @@ Core functionality:
 -User can click on either 'Cancel' button to hide the forms
 
 General Development Steps/Notes:
-1) Imported required modules
-2) Set up Database connection info in app.py
-3) Created routes for '/', '/people', '/delete_people', '/edit_people'
-4) Redirect '/' route to '/people' for quality of life purposes for this particular app (since we don't have a home page)
-5) Start with people route and work down from there, comments in app.py should serve as a step by step from here on out
-6) Don't forget to change the port number at the bottom if hosting on the flip servers
+1) Started by importing bsg_universe.sql via phpmyadmin UI (https://classmysql.engr.oregonstate.edu/index.php) into the school provided database
+2) Imported required modules
+3) Set up Database connection info in app.py
+4) Created routes for '/', '/people', '/delete_people', '/edit_people'
+5) Redirect '/' route to '/people' for quality of life purposes for this particular app (since we don't have a home page)
+6) Start with people route and work down from there, comments in app.py should serve as a step by step from here on out
+7) Don't forget to change the port number at the bottom if hosting on the flip servers
 
 HTML tidbit:
 -HTML should be reasonably self-explanatory, can be as creative as you desire with HTML, certain key elements explained through comments
