@@ -81,13 +81,19 @@ def people():
     # Grab bsg_people data so we send it to our template to display
     if request.method == "GET":
         # mySQL query to grab all the people in bsg_people
-        query = "SELECT * FROM bsg_people"
+        query = "SELECT bsg_people.id, fname, lname, bsg_planets.name AS homeworld, age FROM bsg_people LEFT JOIN bsg_planets ON homeworld = bsg_planets.id"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
 
-        # render people page with data from our select query passed as a tuple, we can now access this data in our template
-        return render_template("people.j2", data=data)
+        # mySQL query to grab planet id/name data for our dropdown
+        query2 = "SELECT id, name FROM bsg_planets"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        homeworld_data = cur.fetchall()
+
+        # render edit_people page passing our query data and homeworld data to the edit_people template
+        return render_template("people.j2", data=data, homeworlds=homeworld_data)
 
 
 # route for delete functionality, deleting a person from bsg_people,
@@ -120,11 +126,6 @@ def edit_people(id):
         cur = mysql.connection.cursor()
         cur.execute(query2)
         homeworld_data = cur.fetchall()
-        print(homeworld_data)
-
-        # Create a tuple similar to our above 'data' variable that holds our desired homeworld options, from our
-        # home world form; we're going to use this in our template to pre-select an option on the edit_people page.
-        # home_data = ({"": 0, "Gemenon": 1, "Leonis": 2, "Caprica": 3},)
 
         # render edit_people page passing our query data and homeworld data to the edit_people template
         return render_template("edit_people.j2", data=data, homeworlds=homeworld_data)
