@@ -52,21 +52,24 @@
                     <input type="text" value="{{data[0].lname}}" class="form-control" id="lname" name="lname" pattern="[A-Za-z0-9]{1,}" required>
                     <label for="year">homeworld:</label>
 
+
                     <select class="form-control" id="homeworld" name="homeworld" pattern="[0-4]{1}" placeholder="" required> 
                         <!-- Access our homeworld tuple passed from app.py-->
+                        <option value="0">&nbsp;</option>
                         {% for homeworld in homeworlds %}
                             <!-- Access keys and values, keys = homeworld name | values = 0-4 --> 
-                            {% for key, value in homeworld.items() %} 
+
                                 <!-- If the value iterated homeworld matches the value of the homeworld of person currently Editing, pre-select that option -->
-                                {% if value == data[0].homeworld %}
-                                    <option value="{{value}}" selected> {{ key }}</option> {% else %}
-                                    <option value="{{value}}"> {{ key }}</option> 
-                                {% endif %} 
-                            {% endfor %}
+                                {% if homeworld['id'] == data[0].homeworld %}
+                                    <option value="{{ homeworld['id'] }}" selected> {{homeworld['name']}}</option>
+                                {% else %}
+                                    <option value="{{ homeworld['id'] }}"> {{homeworld['name']}}</option> 
+                                {% endif %}
+
 
                         <!-- End of this for loop -->
                         {% endfor %} 
-                    </select>
+                    </select>	
                         
                     <label for="color">age:</label>
                     <input type="text" value="{{data[0].age}}" class="form-control" id="age" name="age" pattern="[A-Za-z0-9]{1,}"> 

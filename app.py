@@ -18,9 +18,9 @@ app = Flask(__name__)
 
 # database connection info
 app.config["MYSQL_HOST"] = "classmysql.engr.oregonstate.edu"
-app.config["MYSQL_USER"] = "cs340_XXXXXX"
-app.config["MYSQL_PASSWORD"] = "XXXX"
-app.config["MYSQL_DB"] = "cs340_XXXXXXX"
+app.config["MYSQL_USER"] = "cs340_kamanda"
+app.config["MYSQL_PASSWORD"] = "9279"
+app.config["MYSQL_DB"] = "cs340_kamanda"
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
 mysql = MySQL(app)
@@ -81,7 +81,7 @@ def people():
     # Grab bsg_people data so we send it to our template to display
     if request.method == "GET":
         # mySQL query to grab all the people in bsg_people
-        query = "SELECT * FROM bsg_people;"
+        query = "SELECT * FROM bsg_people"
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
@@ -115,12 +115,19 @@ def edit_people(id):
         cur.execute(query)
         data = cur.fetchall()
 
+        # mySQL query to grab planet id/name data for our dropdown
+        query2 = "SELECT id, name FROM bsg_planets"
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        homeworld_data = cur.fetchall()
+        print(homeworld_data)
+
         # Create a tuple similar to our above 'data' variable that holds our desired homeworld options, from our
         # home world form; we're going to use this in our template to pre-select an option on the edit_people page.
-        home_data = ({"": 0, "Gemenon": 1, "Leonis": 2, "Caprica": 3},)
+        # home_data = ({"": 0, "Gemenon": 1, "Leonis": 2, "Caprica": 3},)
 
         # render edit_people page passing our query data and homeworld data to the edit_people template
-        return render_template("edit_people.j2", data=data, homeworlds=home_data)
+        return render_template("edit_people.j2", data=data, homeworlds=homeworld_data)
 
     # meat and potatoes of our update functionality
     if request.method == "POST":
