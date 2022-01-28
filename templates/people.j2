@@ -114,10 +114,14 @@
 
 				<label for="year">homeworld:</label>
 				<select class="form-control" id="homeworld" name="homeworld" pattern="[0-4]{1}" placeholder="" required>
-					<option value="0">&nbsp;</option>
-					<option value="1">Gemenon</option>
-					<option value="2">Leonis</option>
-					<option value="3">Caprica</option>
+                        <!-- null homeworld option -->
+                        <option value="0">&nbsp;</option>
+						<!-- Access our homeworld tuple passed from app.py to generate our homeworlds dropdown-->
+                        {% for homeworld in homeworlds %}
+							<option value="{{ homeworld['id'] }}"> {{homeworld['name']}}</option> 
+                                
+                        <!-- End of this for loop -->
+                        {% endfor %} 
 				</select>
 
 				<label for="color">age:</label>
